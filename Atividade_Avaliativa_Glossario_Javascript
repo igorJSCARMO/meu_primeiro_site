@@ -1,1 +1,125 @@
+# CRIE UM ARQUIVO INDEX.HTML
 
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossário JavaScript</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <h1>
+        Bem-vindo ao meu glossário JavaScript
+        <img class="logo-js" src="javascript-logo.png" alt="Logo JavaScript">
+    </h1>
+    <p>Clique em um dos termos do glossário abaixo</p>
+</header>
+<main id="glossary-container">
+    <!-- Aqui serão inseridos os termos do glossário dinamicamente -->
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
+
+
+# CRIE UM ARQUIVO STYLES.CSS
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+
+.logo-js {
+    display: block;
+    margin: 20px auto; /* Espaço entre o título e o logo */
+    width: 250px; /* Ajuste conforme necessário */
+    height: 250px;
+
+}
+
+header p {
+    font-size: 18px;
+    color: #ccc;
+}
+
+h1 {
+    margin: 0;
+}
+
+#glossary-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.term {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.term:hover {
+    background-color: #f5f5f5;
+}
+
+.definition {
+    display: none;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-left: 3px solid #333;
+}
+
+
+# CRIE UM ARQUIVO SCRIPT.JS
+
+$(document).ready(function() {
+    $.getJSON('glossary.json', function(data) {
+        data.forEach(function(item) {
+            var termElement = $('<div class="term"></div>').text(item.term);
+            var definitionElement = $('<div class="definition"></div>').text(item.definition);
+            termElement.append(definitionElement);
+            $('#glossary-container').append(termElement);
+
+            termElement.click(function() {
+                $(this).find('.definition').slideToggle();
+            });
+        });
+    });
+});
+
+
+# CRIE UM ARQUIVO GLOSSARY.JSON
+
+[
+    {
+        "term": "Variável",
+        "definition": "Um nome simbólico para armazenar um valor."
+    },
+    {
+        "term": "Função",
+        "definition": "Um bloco de código reutilizável que realiza uma tarefa específica."
+    },
+    {
+        "term": "Array",
+        "definition": "Uma estrutura de dados que armazena uma coleção de elementos."
+    },
+    {
+        "term": "Objeto",
+        "definition": "Uma coleção de propriedades, onde cada propriedade possui um nome e um valor."
+    },
+    {
+        "term": "Método",
+        "definition": "Uma função associada a um objeto que realiza uma operação específica."
+    }
+]
